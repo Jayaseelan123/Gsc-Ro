@@ -16,83 +16,44 @@
         @csrf
         @method('PUT')
         
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            <!-- Left Col: Main Details -->
-            <div class="lg:col-span-2 space-y-8">
-                
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Banner Title</label>
-                    <input type="text" name="title" value="{{ old('title', $banner->title) }}" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium text-lg">
-                    @error('title') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Banner Description</label>
-                    <textarea name="description" rows="3" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium resize-none">{{ old('description', $banner->description) }}</textarea>
-                    @error('description') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Button Text</label>
-                        <input type="text" name="button_text" value="{{ old('button_text', $banner->button_text) }}" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Button Link</label>
-                        <input type="text" name="button_link" value="{{ old('button_link', $banner->button_link) }}" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium">
+        <div class="max-w-3xl mx-auto space-y-8">
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                <label class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Banner Image</label>
+                <div class="mt-2 flex justify-center rounded-2xl border border-dashed border-slate-300 px-6 py-10 bg-white hover:bg-teal-50 hover:border-teal-400 transition-all group">
+                    <div class="text-center w-full">
+                        @php
+                            $imgSrc = $banner->image ? (str_starts_with($banner->image, 'http') ? $banner->image : asset('storage/' . $banner->image)) : null;
+                        @endphp
+                        <img id="banner-image-preview" @if($imgSrc) src="{{ $imgSrc }}" @endif alt="{{ $banner->title }}" class="{{ $imgSrc ? 'block' : 'hidden' }} mx-auto w-full max-h-48 object-contain rounded-xl">
+                        
+                        <svg id="banner-image-placeholder" class="{{ $imgSrc ? 'hidden' : 'block' }} mx-auto h-12 w-12 text-slate-300 group-hover:text-teal-500 transition-colors" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="mt-4 flex text-sm leading-6 text-slate-600 justify-center">
+                            <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-teal-600 hover:text-teal-500">
+                                <span id="banner-image-action">Upload a new file (or leave empty)</span>
+                                <input id="file-upload" name="image" type="file" class="sr-only" accept="image/*"
+                                       data-preview="banner-image-preview" data-preview-placeholder="banner-image-placeholder" data-preview-name="banner-image-name" data-preview-action="banner-image-action">
+                            </label>
+                        </div>
+                        <p id="banner-image-name" class="text-xs font-medium text-slate-600 mt-1 truncate empty:hidden"></p>
+                        <p class="text-xs leading-5 text-slate-500 mt-1">Recommended size: 1920x800</p>
                     </div>
                 </div>
+                @error('image') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
             </div>
 
-            <!-- Right Col: Sidebar Settings -->
-            <div class="space-y-8">
-                
-                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                    <label class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Banner Image</label>
-                    <div class="mt-2 flex justify-center rounded-2xl border border-dashed border-slate-300 px-6 py-10 bg-white hover:bg-teal-50 hover:border-teal-400 transition-all group">
-                        <div class="text-center w-full">
-                            @php
-                                $imgSrc = $banner->image ? (str_starts_with($banner->image, 'http') ? $banner->image : asset('storage/' . $banner->image)) : null;
-                            @endphp
-                            <img id="banner-image-preview" @if($imgSrc) src="{{ $imgSrc }}" @endif alt="{{ $banner->title }}" class="{{ $imgSrc ? 'block' : 'hidden' }} mx-auto w-full max-h-48 object-contain rounded-xl">
-                            
-                            <svg id="banner-image-placeholder" class="{{ $imgSrc ? 'hidden' : 'block' }} mx-auto h-12 w-12 text-slate-300 group-hover:text-teal-500 transition-colors" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
-                            </svg>
-                            <div class="mt-4 flex text-sm leading-6 text-slate-600 justify-center">
-                                <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-teal-600 hover:text-teal-500">
-                                    <span id="banner-image-action">Upload a new file (or leave empty)</span>
-                                    <input id="file-upload" name="image" type="file" class="sr-only" accept="image/*"
-                                           data-preview="banner-image-preview" data-preview-placeholder="banner-image-placeholder" data-preview-name="banner-image-name" data-preview-action="banner-image-action">
-                                </label>
-                            </div>
-                            <p id="banner-image-name" class="text-xs font-medium text-slate-600 mt-1 truncate empty:hidden"></p>
-                            <p class="text-xs leading-5 text-slate-500 mt-1">Recommended size: 1920x800</p>
-                        </div>
-                    </div>
-                    @error('image') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
-                </div>
-
-                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-6">
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Status</label>
-                        <div class="relative">
-                            <select name="status" class="w-full rounded-xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-white py-3 px-4 text-slate-900 font-medium appearance-none bg-none cursor-pointer">
-                                <option value="1" {{ old('status', $banner->status) == '1' ? 'selected' : '' }}>Active - Visible</option>
-                                <option value="0" {{ old('status', $banner->status) == '0' ? 'selected' : '' }}>Inactive - Hidden</option>
-                            </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
-                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Display Order</label>
-                        <input type="number" name="display_order" value="{{ old('display_order', $banner->display_order) }}" class="w-full rounded-xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-white py-3 px-4 text-slate-900 font-medium">
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                <label class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Status</label>
+                <div class="relative">
+                    <select name="status" class="w-full rounded-xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-white py-3 px-4 text-slate-900 font-medium appearance-none bg-none cursor-pointer">
+                        <option value="1" {{ old('status', $banner->status) == '1' ? 'selected' : '' }}>Active - Visible</option>
+                        <option value="0" {{ old('status', $banner->status) == '0' ? 'selected' : '' }}>Inactive - Hidden</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                 </div>
-
             </div>
         </div>
 

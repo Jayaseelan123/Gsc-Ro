@@ -11,6 +11,8 @@ use App\Models\Enquiry;
 use App\Models\WebsiteSetting;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewEnquiryMail;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 class FrontendController extends Controller
 {
@@ -68,6 +70,34 @@ class FrontendController extends Controller
         if (!$product->status) abort(404);
         $product->load('category', 'images');
         return view('frontend.product_details', compact('product'));
+    }
+
+    /**
+     * "Download Specs": the PDF uploaded in Admin > Products, otherwise a spec sheet PDF built from the product's details.
+     */
+    public function productSpecs(Product $product)
+    {
+        if (!$product->status) abort(404);
+
+        $fileName = $product->slug . '-specifications.pdf';
+
+        if ($product->spec_sheet && Storage::disk('public')->exists($product->spec_sheet)) {
+            return Storage::disk('public')->download($product->spec_sheet, $fileName, ['Content-Type' => 'application/pdf']);
+        }
+
+        $product->load('category');
+
+        // Dompdf reads images from disk, so pass file paths rather than URLs.
+        $imagePath = $product->main_image && !str_starts_with($product->main_image, 'http')
+            ? storage_path('app/public/' . $product->main_image)
+            : null;
+
+        return Pdf::loadView('frontend.spec-sheet-pdf', [
+            'product' => $product,
+            'specs' => $product->specList(),
+            'imagePath' => $imagePath && is_file($imagePath) ? $imagePath : null,
+            'logoPath' => public_path('images/logo.png'),
+        ])->setPaper('a4')->download($fileName);
     }
 
     public function gallery()

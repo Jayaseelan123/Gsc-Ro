@@ -87,14 +87,18 @@
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-slate-50">
-                                <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100">Customer Name</th>
-                                <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100">Status</th>
-                                <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100">Date Received</th>
+                                <th class="px-8 py-5 text-xs font-extrabold text-slate-500 uppercase tracking-widest border-b border-slate-100 w-16">S.No</th>
+                                <th class="px-8 py-5 text-xs font-extrabold text-slate-500 uppercase tracking-widest border-b border-slate-100">Customer Name</th>
+                                <th class="px-8 py-5 text-xs font-extrabold text-slate-500 uppercase tracking-widest border-b border-slate-100">Status</th>
+                                <th class="px-8 py-5 text-xs font-extrabold text-slate-500 uppercase tracking-widest border-b border-slate-100">Date Received</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
                             @foreach($recentEnquiries as $enquiry)
                             <tr class="hover:bg-slate-50/50 transition-colors">
+                                <td class="px-8 py-5 whitespace-nowrap text-slate-600 font-bold">
+                                    {{ $loop->iteration }}
+                                </td>
                                 <td class="px-8 py-5 whitespace-nowrap">
                                     <div class="font-bold text-slate-900">{{ $enquiry->name }}</div>
                                     <div class="text-sm text-slate-500">{{ $enquiry->email }}</div>
@@ -133,14 +137,18 @@
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-slate-50">
-                                <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100">Product Name</th>
-                                <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100">Category</th>
-                                <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100">Status</th>
+                                <th class="px-8 py-5 text-xs font-extrabold text-slate-500 uppercase tracking-widest border-b border-slate-100 w-16">S.No</th>
+                                <th class="px-8 py-5 text-xs font-extrabold text-slate-500 uppercase tracking-widest border-b border-slate-100">Product Name</th>
+                                <th class="px-8 py-5 text-xs font-extrabold text-slate-500 uppercase tracking-widest border-b border-slate-100">Category</th>
+                                <th class="px-8 py-5 text-xs font-extrabold text-slate-500 uppercase tracking-widest border-b border-slate-100">Status</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
                             @foreach($recentProducts as $product)
                             <tr class="hover:bg-slate-50/50 transition-colors">
+                                <td class="px-8 py-5 whitespace-nowrap text-slate-600 font-bold">
+                                    {{ $loop->iteration }}
+                                </td>
                                 <td class="px-8 py-5 whitespace-nowrap">
                                     <div class="flex items-center gap-4">
                                         <div class="w-10 h-10 rounded-lg bg-slate-100 overflow-hidden shrink-0">

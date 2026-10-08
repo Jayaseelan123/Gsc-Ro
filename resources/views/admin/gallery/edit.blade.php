@@ -8,7 +8,6 @@
         </a>
         <div class="min-w-0">
             <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">{{ $gallery->isVideo() ? 'Edit Gallery Video' : 'Edit Gallery Image' }}</h2>
-            <p class="text-slate-500 font-medium mt-1 truncate">{{ $gallery->title ?: 'Untitled' }}</p>
         </div>
     </div>
 
@@ -22,14 +21,7 @@
                 @include('admin.gallery._media-fields', ['gallery' => $gallery, 'landscape' => true])
 
                 <div>
-                    <label for="title" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Title</label>
-                    <input id="title" type="text" name="title" value="{{ old('title', $gallery->title) }}" maxlength="255" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium text-lg @error('title') border-red-500 @enderror" placeholder="e.g. Water Treatment Plant Installation">
-                    <p class="text-xs font-medium text-slate-500 mt-2">Shown with the image or video on the Gallery page.</p>
-                    @error('title') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
-                </div>
-
-                <div>
-                    <label for="status" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Status</label>
+                    <label for="status" class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Status</label>
                     <div class="relative">
                         <select id="status" name="status" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 pr-12 text-slate-900 font-medium appearance-none bg-none cursor-pointer @error('status') border-red-500 @enderror">
                             <option value="1" {{ (string) old('status', (int) $gallery->status) === '1' ? 'selected' : '' }}>Active - Visible</option>

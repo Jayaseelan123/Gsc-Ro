@@ -19,21 +19,21 @@
 
             <div class="p-6 sm:p-10 space-y-8">
                 <div>
-                    <label for="name" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Category Name <span class="text-red-500">*</span></label>
+                    <label for="name" class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Category Name <span class="text-red-500">*</span></label>
                     <input id="name" type="text" name="name" value="{{ old('name', $category->name) }}" required autofocus maxlength="255" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium text-lg @error('name') border-red-500 @enderror @error('slug') border-red-500 @enderror" placeholder="e.g. Electrical Supplies">
                     @error('name') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
                     @error('slug') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
-                    <label for="description" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Short Description</label>
+                    <label for="description" class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Short Description</label>
                     <textarea id="description" name="description" rows="4" maxlength="500" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium resize-none @error('description') border-red-500 @enderror" placeholder="1–2 sentences about what customers will find in this category.">{{ old('description', $category->description) }}</textarea>
                     <p class="text-xs font-medium text-slate-500 mt-2">Shown under the category name on the website. Max 500 characters.</p>
                     @error('description') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
                 <div>
                     <label class="flex items-center gap-3 p-4 bg-slate-50 border border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-100 transition-colors">
                         <input type="checkbox" name="status" value="1" {{ old('status', $category->status) ? 'checked' : '' }} class="w-6 h-6 text-teal-600 border-slate-300 rounded focus:ring-teal-500 focus:ring-2">
-                        <span class="text-sm font-bold text-slate-700 uppercase tracking-wider">Active Status</span>
+                        <span class="text-sm font-extrabold text-black uppercase tracking-wider">Active Status</span>
                     </label>
                     <p class="text-xs font-medium text-slate-500 mt-2 ml-1">If unchecked, this category and its products will be hidden from the website.</p>
                 </div>

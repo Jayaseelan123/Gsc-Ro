@@ -24,7 +24,7 @@
             Search
         </button>
         
-        <a href="{{ route('admin.categories.index') }}" class="text-slate-500 hover:text-slate-800 font-bold px-4 py-2.5 rounded-xl flex items-center gap-2 transition-all duration-300 shrink-0" title="Reset Search & Filters">
+        <a href="{{ route('admin.categories.index') }}" class="bg-white hover:bg-slate-50 text-slate-700 font-bold px-6 py-2.5 rounded-xl border border-slate-300 hover:border-slate-400 hover:text-slate-900 shadow-sm flex items-center gap-2 transition-all duration-300 shrink-0 active:bg-slate-100" title="Reset Search & Filters">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
             Reset
         </a>
@@ -38,14 +38,18 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-slate-50">
-                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-black text-slate-900 uppercase tracking-widest border-b border-slate-100">Category Name</th>
-                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-black text-slate-900 uppercase tracking-widest border-b border-slate-100">Status</th>
-                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-black text-slate-900 uppercase tracking-widest border-b border-slate-100 text-center">Actions</th>
+                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-extrabold text-slate-900 uppercase tracking-widest border-b border-slate-100 w-16">S.No</th>
+                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-extrabold text-slate-900 uppercase tracking-widest border-b border-slate-100">Category Name</th>
+                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-extrabold text-slate-900 uppercase tracking-widest border-b border-slate-100">Status</th>
+                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-extrabold text-slate-900 uppercase tracking-widest border-b border-slate-100 text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     @foreach($categories as $category)
                     <tr class="hover:bg-slate-50/50 transition-colors group" x-data="{ showViewModal: false }">
+                        <td class="px-4 xl:px-5 2xl:px-8 py-4 whitespace-nowrap text-slate-600 font-bold">
+                            {{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->iteration }}
+                        </td>
                         <td class="px-4 xl:px-5 2xl:px-8 py-4 whitespace-nowrap">
                             <div class="font-medium text-slate-900 text-lg">{{ $category->name }}</div>
                         </td>
@@ -55,8 +59,8 @@
                             </span>
                         </td>
                         <td class="px-4 xl:px-5 2xl:px-8 py-4 whitespace-nowrap text-center">
-                            <div class="flex items-center justify-center gap-3">
-                                <button type="button" @click="showViewModal = true" class="w-10 h-10 shrink-0 rounded-xl text-blue-600 flex items-center justify-center hover:text-blue-800 transition-colors" title="View Category" aria-label="View Category">
+                            <div class="flex items-center justify-center gap-1">
+                                <button type="button" @click="showViewModal = true" class="w-8 h-10 shrink-0 rounded-xl text-blue-600 flex items-center justify-center hover:text-blue-800 transition-colors" title="View Category" aria-label="View Category">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                 </button>
                                 
@@ -75,20 +79,20 @@
                                             <div class="p-6 md:p-8 space-y-6">
                                                 <div class="flex flex-col sm:flex-row gap-6">
                                                     <div class="flex-1 min-w-0">
-                                                        <span class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Name</span>
-                                                        <div class="text-xl font-bold text-slate-900 break-words">{{ $category->name }}</div>
+                                                        <span class="block text-sm font-extrabold text-slate-900 uppercase tracking-wider mb-1">Name</span>
+                                                        <div class="text-xl font-semibold text-slate-700 break-words">{{ $category->name }}</div>
                                                     </div>
                                                     <div class="sm:text-right">
-                                                        <span class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 sm:mb-1">Status</span>
+                                                        <span class="block text-sm font-extrabold text-slate-900 uppercase tracking-wider mb-2 sm:mb-1">Status</span>
                                                         <span class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg {{ $category->status ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
                                                             {{ $category->status ? 'Active' : 'Inactive' }}
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <span class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Short Description</span>
+                                                    <span class="block text-sm font-extrabold text-slate-900 uppercase tracking-wider mb-2">Short Description</span>
                                                     @if(filled($category->description))
-                                                        <p class="text-slate-700 leading-relaxed bg-slate-50 p-5 rounded-xl border border-slate-200 whitespace-pre-line break-words">{{ trim($category->description) }}</p>
+                                                        <p class="text-slate-600 leading-relaxed bg-slate-50 p-5 rounded-xl border border-slate-200 whitespace-pre-line break-words">{{ trim($category->description) }}</p>
                                                     @else
                                                         <p class="text-slate-400 italic">No short description added yet.</p>
                                                     @endif
@@ -99,13 +103,13 @@
                                 </div>
                                 <!-- End View Modal -->
 
-                                <a href="{{ route('admin.categories.edit', $category) }}" class="w-10 h-10 shrink-0 rounded-xl text-teal-600 flex items-center justify-center hover:text-teal-800 transition-colors" title="Edit Category" aria-label="Edit Category">
+                                <a href="{{ route('admin.categories.edit', $category) }}" class="w-8 h-10 shrink-0 rounded-xl text-teal-600 flex items-center justify-center hover:text-teal-800 transition-colors" title="Edit Category" aria-label="Edit Category">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                 </a>
                                 <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="inline" data-confirm="Are you sure you want to delete this category? This may affect associated products.">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="w-10 h-10 shrink-0 rounded-xl text-red-600 flex items-center justify-center hover:text-red-800 transition-colors" title="Delete" aria-label="Delete">
+                                    <button type="submit" class="w-8 h-10 shrink-0 rounded-xl text-red-600 flex items-center justify-center hover:text-red-800 transition-colors" title="Delete" aria-label="Delete">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                     </button>
                                 </form>

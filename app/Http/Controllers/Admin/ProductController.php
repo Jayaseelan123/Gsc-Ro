@@ -42,7 +42,6 @@ class ProductController extends Controller
 
         $data = $request->validate($this->rules(), $this->messages());
 
-        $data['price'] = $request->filled('price') ? $data['price'] : null;
         $data['featured'] = $request->boolean('is_featured');
         $data['display_order'] = 0;
         $data['main_image'] = $request->file('image')->store('products', 'public');
@@ -64,7 +63,8 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $categories = Category::where('status', true)->get();
+        // Keep the product's own category in the list even if it has since been made inactive.
+        $categories = Category::where('status', true)->orWhere('id', $product->category_id)->get();
         $product->load('images');
         return view('admin.products.edit', compact('product', 'categories'));
     }
@@ -75,7 +75,6 @@ class ProductController extends Controller
 
         $data = $request->validate($this->rules($product), $this->messages());
 
-        $data['price'] = $request->filled('price') ? $data['price'] : null;
         $data['featured'] = $request->boolean('is_featured');
 
         if ($request->hasFile('image')) {
@@ -138,7 +137,6 @@ class ProductController extends Controller
             'slug' => 'required|string|max:255|unique:products,slug' . ($product ? ',' . $product->id : ''),
             'short_description' => 'nullable|string|max:300',
             'specifications' => 'nullable|string|max:5000',
-            'price' => 'nullable|numeric|min:0|max:99999999.99',
             'image' => ($product ? 'nullable' : 'required') . '|image|mimes:jpeg,png,jpg,webp|max:2048',
             'gallery' => 'nullable|array|max:' . max(0, $galleryLimit + count(request()->input('remove_gallery', []))),
             'gallery.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
@@ -156,7 +154,6 @@ class ProductController extends Controller
             'category_id.required' => 'Please select a category.',
             'slug.required' => 'The product name must contain letters or numbers.',
             'slug.unique' => 'A product with this name already exists.',
-            'price.numeric' => 'Price must be a number, e.g. 199.99. Leave it empty for "POA".',
             'image.required' => 'Please upload a product image.',
             'image.mimes' => 'The image must be a JPG, PNG or WEBP file.',
             'image.max' => 'The image must not be larger than 2MB.',

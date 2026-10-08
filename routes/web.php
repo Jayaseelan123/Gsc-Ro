@@ -17,6 +17,7 @@ Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/products', [FrontendController::class, 'products'])->name('products');
 Route::get('/products/{category:slug}', [FrontendController::class, 'categoryProducts'])->name('products.category');
 Route::get('/product/{product:slug}', [FrontendController::class, 'productDetails'])->name('product.details');
+Route::get('/product/{product:slug}/specs', [FrontendController::class, 'productSpecs'])->name('product.specs');
 Route::get('/gallery', [FrontendController::class, 'gallery'])->name('gallery');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::get('/privacy-policy', [FrontendController::class, 'privacy'])->name('privacy');
@@ -25,6 +26,9 @@ Route::get('/terms-of-service', [FrontendController::class, 'terms'])->name('ter
 Route::get('/requirement', [FrontendController::class, 'requirement'])->name('requirement');
 Route::post('/requirement', [FrontendController::class, 'submitRequirement'])->name('requirement.submit');
 Route::post('/contact', [FrontendController::class, 'submitEnquiry'])->name('contact.submit');
+
+// Short address for the admin login page.
+Route::redirect('/login', '/admin/login');
 
 // Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {

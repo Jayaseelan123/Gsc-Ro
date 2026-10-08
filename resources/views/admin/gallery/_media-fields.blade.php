@@ -26,7 +26,7 @@
 <div x-data="galleryMedia(@js($state))" class="space-y-8">
     <!-- Type -->
     <div>
-        <span class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Type <span class="text-red-500">*</span></span>
+        <span class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Type <span class="text-red-500">*</span></span>
         <div class="grid grid-cols-2 gap-3" role="radiogroup" aria-label="Gallery item type">
             @foreach(['image' => ['Image', 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'],
                       'video' => ['Video', 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z']] as $value => [$label, $icon])
@@ -44,7 +44,7 @@
     <!-- Video -->
     <div x-show="type === 'video'" x-cloak class="space-y-5">
         <div>
-            <span class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Video <span class="text-red-500">*</span></span>
+            <span class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Video <span class="text-red-500">*</span></span>
             <div class="flex flex-wrap gap-2" role="radiogroup" aria-label="Video source">
                 @foreach(['youtube' => 'YouTube link', 'upload' => 'Upload video file'] as $value => $label)
                     <label class="cursor-pointer rounded-xl border px-4 py-2 text-sm font-bold transition-colors"
@@ -59,7 +59,7 @@
 
         <!-- YouTube -->
         <div x-show="source === 'youtube'">
-            <label for="video_url" class="block text-xs font-bold text-slate-600 mb-2">YouTube link</label>
+            <label for="video_url" class="block text-xs font-extrabold text-slate-600 mb-2">YouTube link</label>
             <input id="video_url" type="url" name="video_url" x-model.trim="url" :disabled="type !== 'video' || source !== 'youtube'" maxlength="500"
                    class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-3.5 px-5 text-slate-900 font-medium @error('video_url') border-red-500 @enderror"
                    placeholder="https://www.youtube.com/watch?v=...">
@@ -94,7 +94,7 @@
 
     <!-- Image (or video cover) -->
     <div>
-        <span class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">
+        <span class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">
             <span x-show="type === 'image'">Image <span class="text-red-500">*</span></span>
             <span x-show="type === 'video'" x-cloak>Cover Image <span class="normal-case font-semibold text-slate-400 tracking-normal">(optional)</span></span>
         </span>

@@ -10,7 +10,7 @@
         ? (str_starts_with($product->main_image, 'http') ? $product->main_image : asset('storage/' . $product->main_image))
         : null;
 @endphp
-<div class="group h-full bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-teal-200 hover:-translate-y-1 transition-all duration-300 flex flex-col">
+<div class="group h-full bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-200 hover:-translate-y-1 transition-all duration-300 flex flex-col">
     <a href="{{ $url }}" class="relative block aspect-[4/3] bg-slate-50 border-b border-slate-100 overflow-hidden" tabindex="-1" aria-hidden="true">
         @if($image)
             <img src="{{ $image }}" alt="{{ $product->name }}" loading="lazy" class="absolute inset-0 w-full h-full object-contain p-5 group-hover:scale-105 transition-transform duration-500">
@@ -27,20 +27,15 @@
 
     <div class="p-5 flex-1 flex flex-col">
         @if($showCategory && $product->category)
-            <span class="text-[11px] font-bold uppercase tracking-widest text-teal-600 mb-1.5 truncate">{{ $product->category->name }}</span>
+            <span class="text-[11px] font-bold uppercase tracking-widest text-brand-600 mb-1.5 truncate">{{ $product->category->name }}</span>
         @endif
         <h3 class="text-base font-bold text-slate-900 leading-snug line-clamp-2 min-h-[2.75rem]">
-            <a href="{{ $url }}" class="hover:text-teal-600 transition-colors">{{ $product->name }}</a>
+            <a href="{{ $url }}" class="hover:text-brand-600 transition-colors">{{ $product->name }}</a>
         </h3>
         <p class="mt-2 text-sm text-slate-500 leading-relaxed line-clamp-2 min-h-[2.5rem]">{{ $product->short_description }}</p>
 
-        <div class="mt-auto pt-4 flex items-center justify-between gap-3 border-t border-slate-100">
-            @if($product->price)
-                <span class="text-xl font-black text-slate-900 truncate">₹{{ number_format($product->price, 2) }}</span>
-            @else
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Price on request</span>
-            @endif
-            <a href="{{ $url }}" class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-teal-50 text-teal-700 text-sm font-bold hover:bg-teal-600 hover:text-white transition-colors">
+        <div class="mt-auto pt-4 flex items-center justify-end gap-3 border-t border-slate-100">
+            <a href="{{ $url }}" class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-brand-50 text-brand-700 text-sm font-bold hover:bg-brand-600 hover:text-white transition-colors">
                 View
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>

@@ -5,7 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Admin Login - {{ config('app.name', 'CSRGO') }}</title>
+        @php
+            // Website name from Admin > Settings (same as the public site).
+            $siteName = $settings['website_name'] ?? \App\Models\WebsiteSetting::where('key', 'website_name')->value('value') ?: 'GSC-RO Aqua Water Treatment';
+        @endphp
+        <title>Admin Login - {{ $siteName }}</title>
         @include('partials.favicon')
 
         <!-- Fonts -->
@@ -25,9 +29,11 @@
 
         <div class="w-full max-w-md px-8 py-10 bg-white shadow-2xl border border-slate-100 rounded-[2.5rem] relative z-10">
             <div class="flex justify-center mb-8">
-                <a href="/" class="flex items-center gap-2 text-3xl font-extrabold text-teal-700 tracking-tight">
-                    <svg class="w-10 h-10 text-teal-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                    CSRGO
+                <a href="/" class="flex flex-col items-center gap-2">
+                    <img src="{{ asset('images/logo.png') }}" alt="GSC-RO" class="h-20 w-auto">
+                    @if(file_exists(public_path('images/text-logo.png')))
+                        <img src="{{ asset('images/text-logo.png') }}" alt="GSC-RO AQUA WATER TREATMENT" class="h-10 w-auto mt-2">
+                    @endif
                 </a>
             </div>
             

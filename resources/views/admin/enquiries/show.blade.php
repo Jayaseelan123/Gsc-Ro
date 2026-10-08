@@ -21,7 +21,7 @@
     $details[] = ['label' => 'Status', 'type' => 'status'];
     $details[] = ['label' => 'Phone', 'type' => 'phone'];
     $details[] = ['label' => 'Email', 'type' => 'email'];
-    $details[] = ['label' => 'Received', 'type' => 'text', 'value' => $enquiry->receivedAt()->format('d M Y, h:i A T'), 'wide' => true];
+    // $details[] = ['label' => 'Received', 'type' => 'text', 'value' => $enquiry->receivedAt()->format('d M Y, h:i A T'), 'wide' => true];
     if ($enquiry->product) {
         $details[] = ['label' => 'Product', 'type' => 'link', 'value' => $enquiry->product->name, 'href' => route('product.details', $enquiry->product->slug)];
     }
@@ -61,7 +61,7 @@
         <div class="min-w-0">
             <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Enquiry Details</h2>
             <p class="text-slate-500 font-medium mt-1">
-                Received {{ $enquiry->receivedAt()->format('d M Y, h:i A T') }}
+                Received {{ $enquiry->receivedAt()->format('d M Y, h:i A') }}
                 <span class="text-slate-400">({{ $enquiry->created_at->diffForHumans() }})</span>
             </p>
         </div>
@@ -71,7 +71,7 @@
         <form action="{{ route('admin.enquiries.update', $enquiry) }}" method="POST" class="flex items-center gap-2">
             @csrf
             @method('PUT')
-            <label for="status" class="text-sm font-bold text-slate-500">Status</label>
+            <label for="status" class="text-sm font-extrabold text-black">Status</label>
             <div class="relative">
                 <select id="status" name="status" onchange="this.form.requestSubmit()" class="rounded-xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-white py-2.5 pl-4 pr-10 text-sm font-bold text-slate-700 cursor-pointer shadow-sm appearance-none bg-none">
                     @foreach(array_keys(\App\Models\Enquiry::STATUSES) as $status)
@@ -86,14 +86,7 @@
             <noscript><button type="submit" class="px-3 py-2 rounded-lg bg-slate-900 text-white text-sm font-bold">Save</button></noscript>
         </form>
 
-        <form action="{{ route('admin.enquiries.destroy', $enquiry) }}" method="POST" data-confirm="Delete the enquiry from {{ $enquiry->name }}? This cannot be undone.">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="bg-red-50 hover:bg-red-600 text-red-600 hover:text-white font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                Delete
-            </button>
-        </form>
+       
     </div>
 </div>
 @error('status') <p class="-mt-4 mb-6 text-red-600 text-sm font-bold">{{ $message }}</p> @enderror
@@ -101,12 +94,12 @@
 <div class="space-y-6">
         <!-- Submitted details -->
         <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-6 sm:p-8">
-            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Submitted Details</h3>
+            <h3 class="text-xs font-extrabold text-black uppercase tracking-widest mb-4">Submitted Details</h3>
 
             <dl class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 @foreach($details as $item)
                     <div class="rounded-2xl bg-slate-50 border border-slate-100 px-4 py-3 min-w-0 {{ !empty($item['wide']) ? 'sm:col-span-2' : '' }}">
-                        <dt class="text-xs font-bold text-slate-500 uppercase tracking-wider">{{ $item['label'] }}</dt>
+                        <dt class="text-xs font-extrabold text-black uppercase tracking-wider">{{ $item['label'] }}</dt>
                         @switch($item['type'])
                             @case('status')
                                 <dd class="mt-1.5"><span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-lg {{ $enquiry->statusClass() }}">{{ $enquiry->status }}</span></dd>
@@ -154,7 +147,7 @@
         @if($customerMessage !== '')
             <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-6 sm:p-8">
                 <div class="flex items-center justify-between gap-3 mb-4">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Customer Message</h3>
+                    <h3 class="text-xs font-extrabold text-black uppercase tracking-widest">Customer Message</h3>
                     <button type="button" data-copy="{{ $customerMessage }}" class="copy-btn text-xs font-bold text-slate-500 hover:text-teal-600 px-3 py-1.5 rounded-lg hover:bg-teal-50 transition-colors">Copy</button>
                 </div>
                 <div class="bg-slate-50 rounded-2xl p-5 border border-slate-100 text-slate-800 leading-relaxed whitespace-pre-wrap break-words">{{ $customerMessage }}</div>

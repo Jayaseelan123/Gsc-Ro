@@ -28,17 +28,17 @@
                 <h3 class="text-lg font-extrabold text-slate-900">Product Details</h3>
 
                 <div>
-                    <label for="name" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Product Name <span class="text-red-500">*</span></label>
-                    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus maxlength="255" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium text-lg @error('name') border-red-500 @enderror @error('slug') border-red-500 @enderror" placeholder="e.g. Premium Safety Helmet">
+                    <label for="name" class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Product Name <span class="text-red-500">*</span></label>
+                    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus maxlength="255" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium text-lg placeholder:text-slate-400 placeholder:font-normal @error('name') border-red-500 @enderror @error('slug') border-red-500 @enderror" placeholder="e.g. 500 LPH Industrial RO Plant">
                     @error('name') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
                     @error('slug') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
                     <div>
-                        <label for="category_id" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Category <span class="text-red-500">*</span></label>
+                        <label for="category_id" class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Category <span class="text-red-500">*</span></label>
                         <div class="relative">
-                            <select id="category_id" name="category_id" required class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 pl-5 pr-12 text-slate-900 font-medium appearance-none bg-none cursor-pointer @error('category_id') border-red-500 @enderror">
+                            <select id="category_id" name="category_id" required class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 pl-5 pr-12 text-slate-900 font-medium appearance-none bg-none cursor-pointer invalid:text-slate-400 invalid:font-normal [&>option]:text-slate-900 [&>option]:font-medium @error('category_id') border-red-500 @enderror">
                                 <option value="">Select a category</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -50,28 +50,18 @@
                         </div>
                         @error('category_id') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
                     </div>
-
-                    <div>
-                        <label for="price" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Price (INR)</label>
-                        <div class="relative">
-                            <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-5 text-slate-500 font-bold">₹</span>
-                            <input id="price" type="number" name="price" value="{{ old('price') }}" min="0" max="99999999.99" step="0.01" inputmode="decimal" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 pl-10 pr-5 text-slate-900 font-medium @error('price') border-red-500 @enderror" placeholder="e.g. 199.99">
-                        </div>
-                        <p class="text-xs font-medium text-slate-500 mt-2">Leave empty to show "POA" (price on request).</p>
-                        @error('price') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
-                    </div>
                 </div>
 
                 <div>
-                    <label for="short_description" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Short Description</label>
-                    <textarea id="short_description" name="short_description" rows="2" maxlength="300" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium resize-none @error('short_description') border-red-500 @enderror" placeholder="One or two lines shown on product cards.">{{ old('short_description') }}</textarea>
+                    <label for="short_description" class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Short Description</label>
+                    <textarea id="short_description" name="short_description" rows="2" maxlength="300" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium resize-none placeholder:text-slate-400 placeholder:font-normal @error('short_description') border-red-500 @enderror" placeholder="e.g. Fully automatic RO plant for factories, hotels and hospitals.">{{ old('short_description') }}</textarea>
                     <p class="text-xs font-medium text-slate-500 mt-2">Shown on product cards and at the top of the product page. Max 300 characters.</p>
                     @error('short_description') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
-                    <label for="specifications" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Specifications</label>
-                    <textarea id="specifications" name="specifications" rows="6" maxlength="5000" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium resize-y @error('specifications') border-red-500 @enderror" placeholder="Capacity: 500 LPH&#10;Material: SS 304&#10;Power: 230V, 50Hz">{{ old('specifications') }}</textarea>
+                    <label for="specifications" class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Specifications</label>
+                    <textarea id="specifications" name="specifications" rows="6" maxlength="5000" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium resize-y placeholder:text-slate-400 placeholder:font-normal @error('specifications') border-red-500 @enderror" placeholder="e.g.&#10;Capacity: 500 LPH&#10;Material: SS 304&#10;Power: 230V, 50Hz">{{ old('specifications') }}</textarea>
                     <p class="text-xs font-medium text-slate-500 mt-2">One specification per line. Each line becomes a bullet point on the product page.</p>
                     @error('specifications') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
                 </div>
@@ -80,7 +70,7 @@
             <!-- Right: Image & visibility -->
             <div class="space-y-8">
                 <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-6">
-                    <span class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Product Image <span class="text-red-500">*</span></span>
+                    <span class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Product Image <span class="text-red-500">*</span></span>
 
                     <label for="file-upload" class="block cursor-pointer rounded-2xl border border-dashed border-slate-300 bg-slate-50 hover:bg-teal-50 hover:border-teal-400 transition-all group overflow-hidden @error('image') border-red-500 @enderror">
                         <img id="image-preview" src="" alt="Selected image preview" class="hidden w-full h-56 object-contain bg-white">
@@ -100,10 +90,19 @@
 
                 <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-6 space-y-6">
                     <div>
-                        <label for="gallery" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">More Images</label>
-                        <input id="gallery" name="gallery[]" type="file" multiple accept=".jpg,.jpeg,.png,.webp" class="block w-full text-sm text-slate-600 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:font-bold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100 file:cursor-pointer cursor-pointer">
-                        <div id="gallery-preview" class="grid grid-cols-4 gap-2 mt-3 empty:hidden"></div>
-                        <p class="text-xs font-medium text-slate-500 mt-2">Optional. Up to {{ \App\Http\Controllers\Admin\ProductController::GALLERY_LIMIT }} extra images shown as thumbnails under the main image.</p>
+                        <label class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">More Images</label>
+                        
+                        <div id="gallery-preview" class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-6 gap-3 mb-4 empty:hidden"></div>
+                        
+                        <button type="button" onclick="document.getElementById('gallery').click()" class="inline-flex items-center gap-2 bg-slate-50 hover:bg-teal-50 text-teal-700 font-bold px-5 py-3 rounded-xl border-2 border-dashed border-teal-300 transition-colors cursor-pointer w-full justify-center sm:w-auto">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            Add Image
+                        </button>
+                        
+                        <input id="gallery" name="gallery[]" type="file" multiple accept=".jpg,.jpeg,.png,.webp" class="hidden">
+                        
+                        <p class="text-xs font-medium text-slate-500 mt-3">Optional. Up to {{ \App\Http\Controllers\Admin\ProductController::GALLERY_LIMIT }} extra images shown as thumbnails under the main image.</p>
+                        <p id="gallery-error" class="hidden text-red-500 text-xs font-bold mt-2"></p>
                         @error('gallery') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
                         @foreach($errors->get('gallery.*') as $messages)
                             <p class="text-red-500 text-xs font-bold mt-2">{{ $messages[0] }}</p>
@@ -111,7 +110,7 @@
                     </div>
 
                     <div>
-                        <label for="spec_sheet" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Spec Sheet (PDF)</label>
+                        <label for="spec_sheet" class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Spec Sheet (PDF)</label>
                         <input id="spec_sheet" name="spec_sheet" type="file" accept=".pdf,application/pdf" class="block w-full text-sm text-slate-600 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:font-bold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100 file:cursor-pointer cursor-pointer">
                         <p class="text-xs font-medium text-slate-500 mt-2">Optional, up to 5MB. Used by the "Download Specs" button.</p>
                         @error('spec_sheet') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
@@ -120,7 +119,7 @@
 
                 <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-6 space-y-6">
                     <div>
-                        <label for="status" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Visibility</label>
+                        <label for="status" class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Visibility</label>
                         <div class="relative">
                             <select id="status" name="status" class="w-full rounded-xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 py-3 pl-4 pr-10 text-slate-900 font-medium appearance-none bg-none cursor-pointer">
                                 <option value="1" {{ old('status', '1') == '1' ? 'selected' : '' }}>Active - Visible on site</option>
@@ -187,19 +186,67 @@
             errorLabel.classList.add('hidden');
         });
 
-        const gallery = document.getElementById('gallery');
+        const galleryInput = document.getElementById('gallery');
         const galleryPreview = document.getElementById('gallery-preview');
-        gallery.addEventListener('change', function () {
+        const galleryError = document.getElementById('gallery-error');
+        const dt = new DataTransfer();
+
+        galleryInput.addEventListener('change', function () {
+            galleryError.classList.add('hidden');
+            let hasError = false;
+            let errorMessage = '';
+
+            Array.from(galleryInput.files).forEach(function (file) {
+                if (!allowed.includes(file.type)) {
+                    hasError = true;
+                    errorMessage = 'Some files were skipped. Only JPG, PNG, and WEBP formats are allowed.';
+                    return;
+                }
+                if (file.size > 2 * 1024 * 1024) {
+                    hasError = true;
+                    errorMessage = 'Some files were skipped because they exceed the 2MB size limit.';
+                    return;
+                }
+                dt.items.add(file);
+            });
+
+            if (hasError) {
+                galleryError.textContent = errorMessage;
+                galleryError.classList.remove('hidden');
+            }
+
+            renderGallery();
+        });
+
+        function renderGallery() {
             galleryPreview.innerHTML = '';
-            Array.from(gallery.files).forEach(function (file) {
-                if (!file.type.startsWith('image/')) return;
+            galleryInput.files = dt.files;
+            
+            Array.from(dt.files).forEach(function (file, index) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'relative group rounded-xl overflow-hidden shadow-sm border border-slate-200 bg-white aspect-square';
+                
                 const img = document.createElement('img');
                 img.src = URL.createObjectURL(file);
                 img.alt = file.name;
-                img.className = 'w-full aspect-square object-cover rounded-lg border border-slate-200';
-                galleryPreview.appendChild(img);
+                img.className = 'w-full h-full object-cover';
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.title = 'Remove Image';
+                removeBtn.className = 'absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-lg p-1.5 opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-sm hover:scale-110 focus:outline-none focus:opacity-100';
+                removeBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>';
+                
+                removeBtn.onclick = function() {
+                    dt.items.remove(index);
+                    renderGallery();
+                };
+                
+                wrapper.appendChild(img);
+                wrapper.appendChild(removeBtn);
+                galleryPreview.appendChild(wrapper);
             });
-        });
+        }
     })();
 </script>
 @endsection

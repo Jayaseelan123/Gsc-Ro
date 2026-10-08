@@ -24,7 +24,7 @@
             Search
         </button>
 
-        <a href="{{ route('admin.products.index') }}" class="text-slate-500 hover:text-slate-800 font-bold px-4 py-2.5 rounded-xl flex items-center gap-2 transition-all duration-300 shrink-0" title="Reset Search & Filters">
+        <a href="{{ route('admin.products.index') }}" class="bg-white hover:bg-slate-50 text-slate-700 font-bold px-6 py-2.5 rounded-xl border border-slate-300 hover:border-slate-400 hover:text-slate-900 shadow-sm flex items-center gap-2 transition-all duration-300 shrink-0 active:bg-slate-100" title="Reset Search & Filters">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
             Reset
         </a>
@@ -38,16 +38,19 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-slate-50">
-                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-black text-slate-900 uppercase tracking-widest border-b border-slate-100">Product Name</th>
-                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-black text-slate-900 uppercase tracking-widest border-b border-slate-100">Category</th>
-                        <th class="hidden xl:table-cell px-4 xl:px-5 2xl:px-8 py-5 text-sm font-black text-slate-900 uppercase tracking-widest border-b border-slate-100">Price</th>
-                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-black text-slate-900 uppercase tracking-widest border-b border-slate-100">Status</th>
-                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-black text-slate-900 uppercase tracking-widest border-b border-slate-100 text-center">Actions</th>
+                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-extrabold text-slate-900 uppercase tracking-widest border-b border-slate-100 w-16">S.No</th>
+                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-extrabold text-slate-900 uppercase tracking-widest border-b border-slate-100">Product Name</th>
+                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-extrabold text-slate-900 uppercase tracking-widest border-b border-slate-100">Category</th>
+                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-extrabold text-slate-900 uppercase tracking-widest border-b border-slate-100">Status</th>
+                        <th class="px-4 xl:px-5 2xl:px-8 py-5 text-sm font-extrabold text-slate-900 uppercase tracking-widest border-b border-slate-100 text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     @foreach($products as $product)
                     <tr class="hover:bg-slate-50/50 transition-colors group">
+                        <td class="px-4 xl:px-5 2xl:px-8 py-4 whitespace-nowrap text-slate-600 font-bold">
+                            {{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}
+                        </td>
                         <td class="px-4 xl:px-5 2xl:px-8 py-4">
                             <div class="flex items-center gap-4 min-w-[200px]">
                                 <div class="w-12 h-12 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 shrink-0">
@@ -64,15 +67,11 @@
                                 </div>
                                 <div class="min-w-0">
                                     <div class="font-medium text-slate-900 text-lg break-words">{{ $product->name }}</div>
-                                    <div class="xl:hidden text-sm text-slate-500 font-medium">{{ $product->price ? '₹' . number_format($product->price, 2) : 'POA' }}</div>
                                 </div>
                             </div>
                         </td>
                         <td class="px-4 xl:px-5 2xl:px-8 py-4">
                             <div class="font-medium text-slate-700 min-w-[110px] break-words">{{ $product->category->name ?? 'Uncategorized' }}</div>
-                        </td>
-                        <td class="hidden xl:table-cell px-4 xl:px-5 2xl:px-8 py-4 whitespace-nowrap">
-                            <div class="font-medium text-slate-700">{{ $product->price ? '₹' . number_format($product->price, 2) : 'POA' }}</div>
                         </td>
                         <td class="px-4 xl:px-5 2xl:px-8 py-4 whitespace-nowrap">
                             <span class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg {{ $product->status ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
@@ -80,17 +79,17 @@
                             </span>
                         </td>
                         <td class="px-4 xl:px-5 2xl:px-8 py-4 whitespace-nowrap text-center">
-                            <div class="flex items-center justify-center gap-3">
-                                <a href="{{ route('admin.products.show', $product) }}" class="w-10 h-10 shrink-0 rounded-xl text-blue-600 flex items-center justify-center hover:text-blue-800 transition-colors" title="View Product" aria-label="View Product">
+                            <div class="flex items-center justify-center gap-1">
+                                <a href="{{ route('admin.products.show', $product) }}" class="w-8 h-10 shrink-0 rounded-xl text-blue-600 flex items-center justify-center hover:text-blue-800 transition-colors" title="View Product" aria-label="View Product">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                 </a>
-                                <a href="{{ route('admin.products.edit', $product) }}" class="w-10 h-10 shrink-0 rounded-xl text-teal-600 flex items-center justify-center hover:text-teal-800 transition-colors" title="Edit Product" aria-label="Edit Product">
+                                <a href="{{ route('admin.products.edit', $product) }}" class="w-8 h-10 shrink-0 rounded-xl text-teal-600 flex items-center justify-center hover:text-teal-800 transition-colors" title="Edit Product" aria-label="Edit Product">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                 </a>
                                 <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="inline" data-confirm="Are you sure you want to delete this product?">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="w-10 h-10 shrink-0 rounded-xl text-red-600 flex items-center justify-center hover:text-red-800 transition-colors" title="Delete" aria-label="Delete">
+                                    <button type="submit" class="w-8 h-10 shrink-0 rounded-xl text-red-600 flex items-center justify-center hover:text-red-800 transition-colors" title="Delete" aria-label="Delete">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                     </button>
                                 </form>

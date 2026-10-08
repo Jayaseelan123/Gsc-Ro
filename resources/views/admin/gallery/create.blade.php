@@ -20,10 +20,18 @@
                 @include('admin.gallery._media-fields', ['gallery' => null])
 
                 <div>
-                    <label for="title" class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wider">Title <span class="text-red-500">*</span></label>
-                    <input id="title" type="text" name="title" value="{{ old('title') }}" required maxlength="100" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium text-lg @error('title') border-red-500 @enderror" placeholder="e.g. Water Treatment Plant Installation">
-                    <p class="text-xs font-medium text-slate-500 mt-2">Shown with the image or video on the Gallery page. Max 100 characters.</p>
-                    @error('title') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
+                    <label for="status" class="block text-sm font-extrabold text-black mb-3 uppercase tracking-wider">Status</label>
+                    <div class="relative">
+                        <select id="status" name="status" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 pr-12 text-slate-900 font-medium appearance-none bg-none cursor-pointer @error('status') border-red-500 @enderror">
+                            <option value="1" {{ old('status', '1') === '1' ? 'selected' : '' }}>Active - Visible</option>
+                            <option value="0" {{ old('status') === '0' ? 'selected' : '' }}>Inactive - Hidden</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-500">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                    <p class="text-xs font-medium text-slate-500 mt-2">Inactive items are hidden from the website. Up to {{ \App\Http\Controllers\Admin\GalleryController::ACTIVE_LIMIT ?? 10 }} images and videos can be active.</p>
+                    @error('status') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
                 </div>
             </div>
 

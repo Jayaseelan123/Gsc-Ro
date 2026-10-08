@@ -44,7 +44,7 @@ class GalleryController extends Controller
         }
 
         $gallery = new Gallery([
-            'title' => trim($request->title),
+            'title' => $request->filled('title') ? trim($request->title) : null,
             'media_type' => $request->media_type,
             'display_order' => 0,
             'status' => true,
@@ -76,8 +76,9 @@ class GalleryController extends Controller
             return back()->with('error', 'Maximum of ' . self::ACTIVE_LIMIT . ' active gallery items allowed.');
         }
 
+        // The form no longer has a Title field; keep any title already saved (it is used as image alt text).
         $gallery->fill([
-            'title' => $request->filled('title') ? trim($request->title) : null,
+            'title' => $request->has('title') ? ($request->filled('title') ? trim($request->title) : null) : $gallery->title,
             'media_type' => $request->media_type,
             'display_order' => (int) $request->display_order,
             'status' => (bool) $request->status,
@@ -103,7 +104,7 @@ class GalleryController extends Controller
         $imageFile = 'image|mimes:jpeg,png,jpg,webp|max:2048';
 
         $rules = [
-            'title' => $gallery ? 'nullable|string|max:255' : 'required|string|max:100',
+            'title' => 'nullable|string|max:255',
             'media_type' => 'required|in:image,video',
         ];
 
@@ -134,7 +135,6 @@ class GalleryController extends Controller
     private function messages(): array
     {
         return [
-            'title.required' => 'Please enter a title.',
             'media_type.in' => 'Please choose Image or Video.',
             'image.required' => 'Please choose an image to upload.',
             'image.image' => 'The file must be an image.',

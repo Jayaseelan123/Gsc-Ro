@@ -11,7 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Someone already signed in who opens the login page goes to the admin dashboard (the default target, "dashboard", does not exist here).
+        $middleware->redirectUsersTo(fn () => route('admin.dashboard'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // A form bigger than the server's post_max_size arrives empty; send the person back with a clear message.

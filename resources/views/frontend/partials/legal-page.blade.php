@@ -11,7 +11,7 @@
     'breadcrumbs' => [['Home', route('home')], [$title, null]],
 ])
 
-<div class="bg-slate-50">
+<div class="bg-page">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
         <article class="legal-body bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-10 text-slate-700 leading-relaxed">
             {!! $slot !!}

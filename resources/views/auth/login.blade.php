@@ -8,7 +8,7 @@
         <!-- Email Address -->
         <div>
             <label for="email" class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider">Email Address</label>
-            <input id="email" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium @error('email') border-red-500 ring-4 ring-red-100 @enderror" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="admin@csrgo.com" />
+            <input id="email" class="w-full rounded-2xl border-slate-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-100 bg-slate-50 hover:bg-white transition-all duration-300 py-4 px-5 text-slate-900 font-medium @error('email') border-red-500 ring-4 ring-red-100 @enderror" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Enter your email address" />
             @error('email') <p class="text-red-500 text-xs font-bold mt-2">{{ $message }}</p> @enderror
         </div>
 
