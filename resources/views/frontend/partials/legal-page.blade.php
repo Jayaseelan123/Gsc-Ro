@@ -8,7 +8,6 @@
     'eyebrow' => 'Legal',
     'title' => $title,
     'subtitle' => 'Last updated: ' . $updated,
-    'breadcrumbs' => [['Home', route('home')], [$title, null]],
 ])
 
 <div class="bg-page">

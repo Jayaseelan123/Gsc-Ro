@@ -72,7 +72,7 @@
             grid-area: 1 / 1;
         }
     </style>
-    <section class="relative bg-slate-950 overflow-hidden grid min-h-screen">
+    <section class="relative bg-white overflow-hidden grid h-[350px] sm:h-[450px] md:h-[550px] lg:h-[650px]">
         @php
             // Active banners from Admin > Banners (in their display order); the default images are used only when there are none.
             $heroBanners = $banners->filter(fn($banner) => filled($banner->image))
@@ -93,9 +93,11 @@
 
         @foreach($heroBanners as $index => $heroImage)
             <div
-                class="hero-slide hero-stack w-full h-full relative transition-opacity duration-1000 {{ $index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none' }}">
+                class="hero-slide hero-stack w-full h-full relative flex items-center justify-center transition-opacity duration-1000 {{ $index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none' }}">
+                
+                <!-- Main Contained Image (Fully Visible) -->
                 <img src="{{ $heroImage }}" alt="GSC-RO Banner {{ $index + 1 }}"
-                    class="absolute inset-0 w-full h-full object-cover object-center" @if($index > 0) loading="lazy" @endif>
+                    class="relative z-10 w-full h-full object-contain" @if($index > 0) loading="lazy" @endif>
             </div>
         @endforeach
 
@@ -186,14 +188,14 @@
                     </a>
 
                     <!-- <a href="{{ route('about') }}"
-                                class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-blue-900 hover:bg-blue-950 text-white font-bold shadow-lg shadow-blue-900/30 transition-colors">
-                                Learn More
-                                <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform duration-300"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                </svg>
-                            </a> -->
+                                        class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-blue-900 hover:bg-blue-950 text-white font-bold shadow-lg shadow-blue-900/30 transition-colors">
+                                        Learn More
+                                        <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform duration-300"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                        </svg>
+                                    </a> -->
 
                 </div>
             </div>
@@ -325,25 +327,25 @@
 
     <!-- 6. Products -->
     <!-- @if($products->isNotEmpty())
-                                                                    <section class="py-16 lg:py-24 bg-page">
-                                                                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                                                                            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 lg:mb-12">
-                                                                                <div class="max-w-2xl">
-                                                                                    <span class="text-xs font-bold uppercase tracking-widest text-brand-600">Our Products</span>
-                                                                                    <h2 class="mt-3 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Aqua Filter Products
-                                                                                    </h2>
-                                                                                    <p class="mt-4 text-lg text-slate-600">Water purification products for homes, offices and commercial
-                                                                                        use.</p>
+                                                                            <section class="py-16 lg:py-24 bg-page">
+                                                                                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                                                                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 lg:mb-12">
+                                                                                        <div class="max-w-2xl">
+                                                                                            <span class="text-xs font-bold uppercase tracking-widest text-brand-600">Our Products</span>
+                                                                                            <h2 class="mt-3 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Aqua Filter Products
+                                                                                            </h2>
+                                                                                            <p class="mt-4 text-lg text-slate-600">Water purification products for homes, offices and commercial
+                                                                                                use.</p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                                                                                        @foreach($products as $product)
+                                                                                            @include('frontend.partials.product-card', ['product' => $product])
+                                                                                        @endforeach
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                                                                                @foreach($products as $product)
-                                                                                    @include('frontend.partials.product-card', ['product' => $product])
-                                                                                @endforeach
-                                                                            </div>
-                                                                        </div>
-                                                                    </section>
-                                                                @endif -->
+                                                                            </section>
+                                                                        @endif -->
 
 
 

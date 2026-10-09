@@ -31,7 +31,7 @@ class BannerController extends Controller
         $request->validate([
             'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:1048',
             'button_text' => 'nullable|string|max:255',
             'button_url' => 'nullable|string|max:255',
             'display_order' => 'required|integer',
@@ -75,7 +75,8 @@ class BannerController extends Controller
 
         $data = $request->all();
         if ($request->hasFile('image')) {
-            if ($banner->image) Storage::disk('public')->delete($banner->image);
+            if ($banner->image)
+                Storage::disk('public')->delete($banner->image);
             $data['image'] = $request->file('image')->store('banners', 'public');
         }
 
@@ -85,7 +86,8 @@ class BannerController extends Controller
 
     public function destroy(Banner $banner)
     {
-        if ($banner->image) Storage::disk('public')->delete($banner->image);
+        if ($banner->image)
+            Storage::disk('public')->delete($banner->image);
         $banner->delete();
         return redirect()->route('admin.banners.index')->with('success', 'Banner deleted successfully.');
     }

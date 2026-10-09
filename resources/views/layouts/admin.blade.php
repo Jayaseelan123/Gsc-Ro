@@ -138,9 +138,9 @@
                                 <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 font-bold flex items-center justify-center border border-brand-200 shadow-sm">
                                     {{ mb_strtoupper(mb_substr(Auth::user()->name, 0, 1)) }}
                                 </div>
-                                <div class="hidden md:flex flex-col items-start text-left">
+                                <div class="hidden md:flex items-center gap-1 text-left">
                                     <p class="text-sm font-bold text-slate-800">{{ Auth::user()->name }}</p>
-                                    <p class="text-xs text-slate-500 font-medium flex items-center gap-1">Admin <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></p>
+                                    <svg class="w-4 h-4 text-slate-500 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                                 </div>
                             </button>
 
